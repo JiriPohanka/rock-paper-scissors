@@ -1,60 +1,71 @@
-/*let userScore = document.getElementById("#user-score").innerHTML;
-let computerScore = document.getElementById("#computer-score").innerHTML;
-*/
+const rockBtn = document.querySelector('#rock-btn');
+const paperBtn = document.querySelector('#paper-btn');
+const scissorsBtn = document.querySelector('#scissors-btn');
+const randomBtn = document.querySelector('#random-btn');
+const userScoreSpan = document.querySelector('#user-score');
+const computerScoreSpan = document.querySelector('#computer-score');
+const roundResult = document.querySelector('#round-result');
+const handsPicked = document.querySelector('#hands-picked');
+const gameResult = document.querySelector('#game-result');
+
 
 let userScore = 0;
 let computerScore = 0;
+const winningScore = 5;
+gameResult.textContent = `First to get ${winningScore} points, wins the game!`
 
-
-//there are 3 hands to choose from//
+//generate a hand at random
 const handChoice = ["rock", "paper", "scissors"];
-
-//user inputs their hand at prompt//
-const getUserHand = function() {
-    return window.prompt("Rock, paper or scissors?", getRndHand());
+const getRndHand = function () {
+    return handChoice[Math.floor(Math.random() * 3)];;
 }
 
-//generate a hand randomly//ý
-const getRndHand = function() {
-    return handChoice[Math.floor(Math.random()*3)];
-}
-
-//computer's hand is generated at random//
+//computer's hand is generated at random
 const getCompHand = () => getRndHand();
-console.log(getCompHand())
+
+//when user clicks a button
+rockBtn.addEventListener('click', () => resolveRound("rock", getCompHand()));
+paperBtn.addEventListener('click', () => resolveRound("paper", getCompHand()));
+scissorsBtn.addEventListener('click', () => resolveRound("scissors", getCompHand()));
+randomBtn.addEventListener('click', () => resolveRound(getRndHand(), getCompHand()));
 
 
 //resolve a single round//
-function resolveRound(userHand, compHand) { 
-    console.log("UserHand:" + userHand + " and compHand:" + compHand)
+function resolveRound(userHand, compHand) {
 
-    if (userHand === compHand) {
-        console.log("It's a draw!");
-
-    } else if (userHand === "rock" && compHand === "paper") {
-        console.log("User loses");
-         computerScore++;
-
-    } else if (userHand === "paper" && compHand === "scissors") {
-        console.log("User loses");
-         computerScore++;
-
-    } else if (userHand === "scissors" && compHand === "rock") {
-        console.log("User loses");
-        computerScore++;
+    if (userScore === winningScore || computerScore === winningScore) {
+        if (userScore > computerScore) {
+            gameResult.textContent = "You win the match!";
+        } else gameResult.textContent = "You lose the match!";
 
     } else {
-        console.log("User wins");
-        userScore++;
-    }
 
-    console.log(`user score: ${userScore} : comp score: ${computerScore}`)
+        handsPicked.textContent = `you picked ${userHand} against computer's ${compHand}`;
+
+        if (userHand === compHand) {
+            roundResult.textContent = "It's a draw!";
+
+        } else if (userHand === "rock" && compHand === "paper") {
+            computerScore++;
+            computerScoreSpan.textContent = `${computerScore}`
+            roundResult.textContent = "You lose!";
+
+        } else if (userHand === "paper" && compHand === "scissors") {
+            computerScore++;
+            computerScoreSpan.textContent = `${computerScore}`
+            roundResult.textContent = "You lose!";
+
+        } else if (userHand === "scissors" && compHand === "rock") {
+            computerScore++;
+            computerScoreSpan.textContent = `${computerScore}`
+            roundResult.textContent = "You lose!";
+
+        } else {
+            userScore++;
+            userScoreSpan.textContent = `${userScore}`
+            roundResult.textContent = "You win!";
+        }
+    }
 }
 
 
-const runGame = function() {
-    for (let i = 0; i <= 4; i++) {
-    resolveRound(getUserHand(), getCompHand());
-
-    }
-}

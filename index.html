@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>Rock-Paper-Scissors</h1>
     </header>
     <main>
+        <button class="gamebtn" id="rock-btn">Rock!</button>
+        <button class="gamebtn" id="paper-btn">Paper!</button>
+        <button class="gamebtn" id="scissors-btn">Scissors!</button>
+        <button class="gamebtn" id="random-btn">Random!</button>
         <h2>Round <span id="round-counter">1</span></h2>
+        <span id="hands-picked">Click a button!</span>
         <span id="round-result">You haven't played yet.</span>
         <h2>Score:</h2>
         <div class="flex-row">
@@ -21,9 +27,14 @@
             <span>:</span>
             <span id="computer-score">0</span>
         </div>
+        <span id="game-result"></Span>
     </main>
     <footer>
 
     </footer>
 </body>
+
+<script type="text/javascript" src="app.js"></script>
+
+
 </html>
